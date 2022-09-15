@@ -1,13 +1,12 @@
 const Discord = require("discord.js");
-const Enmap = require("enmap");
+
 const fs = require("fs");
-json = require('json-update');
 
 const client = new Discord.Client();
 require("discord-replys");
 const config = require('./config/config.json')
 const settings = require('./config/settings.json')
-client.commands = new Enmap();
+client.commands = new Discord.Collection();
 client.database = {
   users: require("./database/models/users"),
   servers: require("./database/models/guilds")
@@ -26,7 +25,7 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.commands = new Enmap();
+
 
 
 console.log('Loading Commands...')

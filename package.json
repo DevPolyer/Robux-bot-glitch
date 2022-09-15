@@ -1,21 +1,13 @@
 {
   "name": "discord-bot-dashboard-v2",
   "version": "1.0.0",
-  "description": "Discord BOT Dashboard is made to make Discord BOT Development easy, designed to create applications without having to write a single line of code while using a user friendly Web-Dashboard!",
+  "description": "Robux-dashboard-bot!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js" 
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LachlanDev/Discord-BOT-Dashboard-V2.git"
-  },
-  "author": "LachlanDev",
+  "author": "DevPolyer",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LachlanDev/Discord-BOT-Dashboard-V2/issues"
-  },
-  "homepage": "https://github.com/LachlanDev/Discord-BOT-Dashboard-V2#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "canvas": "^2.9.3",
@@ -43,5 +35,8 @@
     "passport-discord": "^0.1.4",
     "request": "^2.88.2",
     "socket.io": "^4.2.0"
+  },
+  "engines": {
+    "node": ">=16.x"
   }
 }
