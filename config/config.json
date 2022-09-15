@@ -1,12 +1,12 @@
 {
-    "clientID": "1015952224003829781",
+  "clientID": "1015952224003829781",
   "clientSecret": "GhEZLIhPVikhfMwWv5-syebsshuYbTD5",
-  "callbackURL": "http://localhost:5000/login/api",
+  "callbackURL": "https://p2-r2.glitch.me/login/api",
   "Admin": [
       "860865950945378325",
       "786235323486437407"
   ],
-  "token": "MTAxNTk1MjIyNDAwMzgyOTc4MQ.G8mVIu._d6tKmix7udfpXbaY4X6JuQvE1a7ovHg7bA3oY",
+  "token": "MTAxNTk1MjIyNDAwMzgyOTc4MQ.GpO66t.xrDqic1NxuZBWX6yF7NJ8ELTmgQAMmPTrynEVo",
   "prefix": "-",
   "port": "5000",
   "db": "mongodb+srv://ZIAD:EMAD@cluster0.qizpg.mongodb.net/ROBUXSYSTEM"
