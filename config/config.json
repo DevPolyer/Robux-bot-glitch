@@ -1,0 +1,13 @@
+{
+    "clientID": "931261786773127249",
+  "clientSecret": "ZrbcXAIPQwYX9XHxPJF1RIdotKmE15IG",
+  "callbackURL": "http://localhost:5000/login/api",
+  "Admin": [
+      "860865950945378325",
+      "786235323486437407"
+  ],
+  "token": "OTMxMjYxNzg2NzczMTI3MjQ5.GpqOnh.MOpEaI_3gewdfU9GzvwE7_Wm1OLwEM6ofJXcSo",
+  "prefix": "!",
+  "port": "5000",
+  "db": "mongodb+srv://ZIAD:EMAD@cluster0.qizpg.mongodb.net/ROBUXSYSTEM"
+}
