@@ -9,6 +9,3 @@ for (folder of readdirSync(normalizedPath).filter(folder => folder !== "index.js
     module.exports[name] = cmd
   }
 }
-// var name = file.replace('.js', '');
-//   exports[name] = require("../commands/" + file);
-// });
