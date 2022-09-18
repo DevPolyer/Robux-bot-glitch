@@ -7,7 +7,7 @@
       "786235323486437407"
   ],
   "token": "MTAxNTk1MjIyNDAwMzgyOTc4MQ.GsfETN.bikRFthRT9O1G69GwCpizi7EsJenk_9BVwSXKU",
-  "prefix": "!",
+  "prefix": "-",
   "port": "5000",
   "db": "mongodb+srv://ZIAD:EMAD@cluster0.qizpg.mongodb.net/ROBUX-BOT"
 }
