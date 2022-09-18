@@ -1,14 +1,15 @@
 const  { MessageEmbed } = require ("discord.js");
-const prefix = require('../../config/config.json')
+const prefix = require('../config/config.json')
 
 module.exports.run = async (client, message, args) =>{
  
-    if (!message.channel.name.startsWith("ticket")) return;
+    if (!message.channel.name.startsWith("ticket")) return
     
     
     let user = message.author;
+    await client.database.users.setUser(user.id);  
     await client.database.servers.setGuild(message.guild.id);
-    const data = await message.data
+    const data = await client.database.users.findOne({userId: user.id});
     const data2 = await client.database.servers.findOne({guildId: message.guild.id});
      
     if (client.Buycooldown.has(`${message.author.id}-${message.guild.id}`)) return message.replyNoMention(`**لديك عمليه شراء بالفعل 😒**`);
@@ -16,7 +17,7 @@ module.exports.run = async (client, message, args) =>{
     if (args[0] > 1000) return message.replyNoMention(`**الحد الاقصي للشراء هو  👍1000**`)
     const coins = data.coins;
     const owner = data2.owner || message.guild.ownerId;
-    const limit = data2.limit.buy || 5;
+    const limit = data2.limit.buy;
     const price = data2.price || 1000;
 
     if (limit && limit > args[0]) return message.replyNoMention(`**الحد الاقصي للشراء ${limit}**`);
@@ -41,7 +42,10 @@ module.exports.run = async (client, message, args) =>{
         const filter = m => m.author.id === '282859044593598464' && m.content.includes(resived) && m.content.includes(`<@!${owner}>`) ;
         const collector = message.channel.createMessageCollector(filter, {time: 300000 });
 
-        collector.once("collect", async() => { 
+        collector.once("collect", async() => {
+            let role = await message.guild.roles.cache.find(r => r.name.startsWith('-Client'));
+
+            if (!role) role = await message.guild.roles.create({name: '-Client', color: 'RANDOM'}).catch(e => {console.log}); 
             if (!client.Buycooldown.has(`${message.author.id}-${message.guild.id}`)) return buyMessage.delete().catch(e => {});
               
             data.coins = Number(+coins + +args[0]);

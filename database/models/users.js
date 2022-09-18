@@ -8,30 +8,26 @@ const usersSchema = new mongoose.Schema({
   createAt: Date,
 });
 
-usersSchema.statics.upDateProfile = async function(user, guild) {
-  const userId = user.id;
-  const guildId = guild.id;
+usersSchema.statics.get = async function(message, type) {
+   var userId = message.mentions.users.first()|| message.author;
+   var guildId = message.guild.id; 
    
-  const oldOldoldData = await this.findOne({userId});
-  const oldData = await this.findOne({userId, guildId});
+   if (!userId || userId.bot) return;
+   type.author? userId = message.author.id : userId = userId.id;
+    
 
-   if (oldData) {
-    if (oldOldoldData && !oldOldoldData.guildId) {
-      console.log("editing")
-      oldData.coins = oldOldoldData.coins;
-      oldData.booster = oldOldoldData.booster;
-      oldData.save();
-      oldOldoldData.delete();
-      return oldData
-    }else {
-      return oldData
-    }
-   }
+  const Data = await this.findOne({userId, guildId});
 
-  if (!oldData) {
+  if (Data) {
+    
+    return message.data = Data
+  };
+
+  if (!Data) {
     await this.create({userId, guildId});
-    return  await this.findOne({userId, guildId});
+    return message.data  = await this.findOne({userId, guildId});
   }
+
 } 
 
 usersSchema.statics.setUser = async function (userId) {

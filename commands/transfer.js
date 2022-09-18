@@ -1,17 +1,18 @@
 const noblox = require("noblox.js");
-const prefix = require('../../config/config.json');
+const prefix = require('../config/config.json');
 const axios = require("axios")
 
 module.exports.run = async(client, message, args) =>{
 
     let user = message.author;
+    await client.database.users.setUser(user.id);  
     await client.database.servers.setGuild(message.guild.id);
-    const data = await message.data
+    const data = await client.database.users.findOne({userId: user.id});
     const data2 = await client.database.servers.findOne({guildId: message.guild.id});
 
     const coins = data.coins;
-    const cookie = data2.cookie || "a";
-    const groupId = data2.groupId || 1;
+    const cookie = data2.cookie;
+    const groupId = data2.groupId;
     const proofchannel = data2.proofchannel;
     const limit = data2.limit.transfer;
 
@@ -69,5 +70,4 @@ module.exports.details = {
     example:`${prefix.prefix}transfer 1 ziademad2008 `,
     guildOnly: true,
     args: true,
-    author: true,
 }

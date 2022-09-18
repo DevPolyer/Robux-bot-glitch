@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const guildsSchema = new mongoose.Schema({
   guildId: String,
   language: String,
