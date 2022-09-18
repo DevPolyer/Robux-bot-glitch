@@ -3,6 +3,7 @@ const { Admin } =  require("../config/config.json");
 const ms = require("ms");
 
 module.exports = async (client, message) => {
+  if (message.channel.type === "dm") return;
     if (message.author.bot) return;
 
     if (message.content.indexOf(client.config.prefix) !== 0) return;
