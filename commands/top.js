@@ -1,17 +1,17 @@
-const prefix = require('../../config/config.json');
+const prefix = require('../config/config.json');
 const discord = require('discord.js');
 
 module.exports.run = async(client, message, args) =>{
     const users = await client.database.users.find()
-    const all = users.filter(users => users.guildId === `${message.guild.id}`).sort((a, b) => b.coins - a.coins)
+    const all = users.sort((a, b) => b.coins - a.coins )
 
     let Tops = new Array();
     let count = 0;
 
-   for (let count = 0; count < 10 ; count++) {
-      let user =  client.users.cache.get(all[count].userId);
-      if (user && count !== 10) Tops.push(`**[#${count + 1}] - [${user.username.toLocaleString("ar-SA")}] - [${all[count].coins}]** \n\ `);
-    }
+    all.forEach( e => {
+      let user =  client.users.cache.get(e.userId);
+      if (user && count !== 10) Tops.push(`**[#${count ++}] - [${user.username.toLocaleString("ar-SA")}] - [${e.coins}]** \n\ `);
+    })
 
     const embed = new discord.MessageEmbed()
     .setColor("Blue")

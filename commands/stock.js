@@ -1,4 +1,4 @@
-const prefix = require('../../config/config.json');
+const prefix = require('../config/config.json');
 const noblox = require('noblox.js')
 
 module.exports.run = async(client, message, args) =>{
@@ -6,19 +6,19 @@ module.exports.run = async(client, message, args) =>{
     await client.database.servers.setGuild(message.guild.id);
     const data2 = await client.database.servers.findOne({guildId: message.guild.id});
 
-    const cookie = data2.cookie || "a";
-    const groupId = data2.groupId || 1 ;
-  
+    const cookie = data2.cookie;
+    const groupId = data2.groupId;
+
     await noblox.setCookie(cookie).then(async (user) => {
         await noblox.getGroup(groupId).then(async g => {
           var currentfunds = await noblox.getGroupFunds(g.id);
           var revenueSummary = await noblox.getGroupRevenueSummary(g.id, "Year")
          message.replyNoMention(`**رصيد جروب ${g.name} الحالي هو ${currentfunds} \n\ الرصيد القادم هو ${revenueSummary.pendingRobux}**`)
     }).catch(e => {
-      message.replyNoMention(`**يجب عليك تسجيل اي دي الجروب😢**`)   
+      message.replyNoMention(`**هذا الامر مقفل حاليا 😢**`)   
     })
     }).catch(e => {
-        message.replyNoMention(`**يجب عليك تسجيل كوكي جروبك اولا😢**`)
+        message.replyNoMention(`**هذا الامر مقفل حاليا 😢**`)
     })
 }
 

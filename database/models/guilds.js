@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
+
 const guildsSchema = new mongoose.Schema({
   guildId: String,
   language: String,
   prefix: String,
   cookie: String,
-
   status: Boolean,
   proofchannel: String,
   thanksChannel: String,
   groupId: Number,
-  price: Number,
+  price: {type: Number, default: 1000},
   owner: String,
   thankschannel: Number,
   status: {

@@ -1,7 +1,7 @@
-const prefix = require('../../config/config.json');
+const prefix = require('../config/config.json');
 const fs = require('fs')
 const discord = require('discord.js');
-const { Admin } =  require("../../config/config.json")
+const { Admin } =  require("../config/config.json")
 
 module.exports.run = async(client, message, args) => {
  
@@ -10,10 +10,10 @@ module.exports.run = async(client, message, args) => {
         if (!command) return message.replyNoMention(`**لا يمكنني العثور علي هذا الامر**`);
         const cmd = command
         
-        if (cmd.details.owners  && !message.member.permissions.has("ADMINISTRATOR")) return;
+        if (cmd.details.owners && !Admin.includes(message.author.id)) return;
 
         let embed = new discord.MessageEmbed()
-        .setColor("RANDOM")
+        .setColor("Blue")
         .setAuthor(message.author.username, message.author.avatarURL())
         .setTitle(`Help  commands`)
         .setThumbnail(message.guild.iconURL())
@@ -32,7 +32,7 @@ module.exports.run = async(client, message, args) => {
     }else {
 
    let embed = new discord.MessageEmbed()
-   .setColor("RANDOM")
+   .setColor("Blue")
    .setAuthor(message.author.username, message.author.avatarURL())
    .setTitle(`Help all commands`)
    .setThumbnail(message.guild.iconURL())
@@ -41,16 +41,13 @@ module.exports.run = async(client, message, args) => {
     
    const commands = [];
 
-   client.commands.filter(e => e.category != 'dev' && !e.details.help ).forEach(cmd => {
-    if (!cmd.details.owners) commands.push({ name: `\`${prefix.prefix}${cmd.details.name}\``, category: cmd.category });
-    if (cmd.details.owners && message.member.permissions.has("ADMINISTRATOR")) commands.push({ name: `\`${prefix.prefix}${cmd.details.name}\``, category: cmd.category });
+   client.commands.filter(e => e.category != 'dev' && (e.help || e.help == undefined) ).forEach(cmd => {
+    commands.push({ name: `\`${prefix.prefix}${cmd.details.name}\``, category: "general" });
   });
   
-  let general = commands.filter(cmd => cmd.category == 'public').map(cmd => cmd.name);
-  let mod = commands.filter(cmd => cmd.category == 'admin' || cmd.category == 'code').map(cmd => cmd.name);
+  let general = commands.filter(cmd => cmd.category == 'general').map(cmd => cmd.name);
 
   if (general.length) embed.addField("**عامه**", general.join(', '));
-  if (mod.length) embed.addField(`**اداره**`, mod.join(","))
   
   message.replyNoMention(embed)
 
@@ -64,5 +61,5 @@ module.exports.details = {
     description: 'get help with this command',
     usage:`${prefix.prefix}help || ${prefix.prefix}help (command)`,
     guildOnly: true,
-    help: true,
+    owners: true,
 }

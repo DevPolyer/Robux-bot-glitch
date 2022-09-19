@@ -1,12 +1,12 @@
 const discord = require ("discord.js");
-const prefix = require('../../config/config.json')
-const codesSchema = require('../../database/models/codes');
+const prefix = require('../config/config.json')
+const codesSchema = require('../database/models/codes');
 
 module.exports.run = async (client, message, args) =>{
   const codename = args[0];
   if (codename.includes(" ")) return message.replyNoMention(`**لا يمكنك استعمال المسافات مع اسم الكود 😊**`);
 
-  const code = await codesSchema.findOne({name: codename, guildId: message.guild.id});
+  const code = await codesSchema.findOne({name: codename});
   if (!code) return message.replyNoMention(`**هذا الكود غير موجود او منتهي 😢**`);
 
   let embed = new discord.MessageEmbed()

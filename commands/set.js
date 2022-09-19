@@ -1,5 +1,5 @@
 const discord = require ("discord.js");
-const prefix = require('../../config/config.json');
+const prefix = require('../config/config.json');
 const noblox = require("noblox.js");
 
 module.exports.run = async (client, message, args) => {
@@ -39,24 +39,18 @@ module.exports.run = async (client, message, args) => {
 
    })
    .catch(e => {
-    let embed = new discord.MessageEmbed()
-    .setColor("BLUE")
-    .setDescription(`**الكوكي الذي ادخلته غير صحيح قم بتباع التعليمات للحصول علي كوكي صحيح **`)
-    .setAuthor(message.author.username, message.author.avatarURL())
-    .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
-    .setTimestamp()
-    message.replyNoMention(embed)
+    message.replyNoMention(`**الرجاء تحديد كوكي صالح للاستخدام 😒**`)
    })
 
   }
 
 
 if (args[0].toLowerCase() === "group" && args[1]) {
-    if (data.groupId && data.groupId.toString() === args[1]) {
+    if (data.groupId.toString() === args[1]) {
         return message.replyNoMention(`** هذا الجروب محدد بالفعل 😂**`)
     };
 
-   await noblox.setCookie(data.cookie || "a").then(async user => {
+   await noblox.setCookie(data.cookie).then(async user => {
     await noblox.getGroup(args[1]).then(async (group) => {
       if (user.UserID !== group.owner.userId) return message.replyNoMention(`**الرجاء تحديد جروب تابع لك 😒**`);
       
@@ -101,7 +95,6 @@ if (args[0].toLowerCase() === "price" && args[1]) {
 if (args[0].toLowerCase() === "proofchannel" && args[1]) {
   let channel = await client.channels.cache.get(args[1].toDiscordId());
   if (!channel) return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
-  if (channel.type !== "text") return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
 
   data.proofchannel = channel.id;
   data.save();
@@ -119,8 +112,8 @@ if (args[0].toLowerCase() === "balance" && args[1]) {
 
   let user = await client.users.cache.get(args[1].toDiscordId());
   if (!user) return message.replyNoMention(`**لا يمكنني العثور علي هذا المستخدم**`);
-
-  var userData = await message.data;
+  await client.database.users.setUser(user.id);
+  const userData = await client.database.users.findOne({userId: user.id});
 
   if (message.content.slice(1).includes("+")) {
     userData.coins += Number(args[2].trim(" ").slice(1));

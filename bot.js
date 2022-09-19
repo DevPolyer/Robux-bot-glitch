@@ -1,12 +1,13 @@
 const Discord = require("discord.js");
 const Enmap = require("enmap");
 const fs = require("fs");
-json = require('json-update');
-
+const json = require('json-update');
 const client = new Discord.Client();
-require("discord-replys");
+require("discord-replys")
+
+
 const config = require('./config/config.json')
-const settings = require('./config/settings.json')
+const settings = require('./config/settings.json');
 client.commands = new Enmap();
 client.database = {
   users: require("./database/models/users"),
@@ -26,8 +27,6 @@ fs.readdir("./events/", (err, files) => {
   });
 });
 
-client.commands = new Enmap();
-
 
 console.log('Loading Commands...')
 for (folder of fs.readdirSync("commands").filter(folder => folder !== "index.js")) {
@@ -38,10 +37,6 @@ for (folder of fs.readdirSync("commands").filter(folder => folder !== "index.js"
     client.commands.set(cmd.details.name, cmd);
   }
 }
-
-client.on("ready", () => {
-  client.user.setActivity('-help', { type: 'WATCHING' });
-});
 
 client.login(config.token)
 require("./database/connect");

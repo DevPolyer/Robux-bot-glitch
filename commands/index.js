@@ -1,5 +1,4 @@
 var normalizedPath = require("path").join(__dirname, "../commands");
-
 const { readdirSync } = require("fs")
 
 for (folder of readdirSync(normalizedPath).filter(folder => folder !== "index.js")) {
@@ -9,6 +8,3 @@ for (folder of readdirSync(normalizedPath).filter(folder => folder !== "index.js
     module.exports[name] = cmd
   }
 }
-// var name = file.replace('.js', '');
-//   exports[name] = require("../commands/" + file);
-// });

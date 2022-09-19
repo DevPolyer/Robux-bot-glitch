@@ -56,7 +56,7 @@ http.listen(port)
 
 io.sockets.on('connection', function(sockets){
   setInterval(function(){ 
-    // Uptime Count
+
     let days = Math.floor(discord.client.uptime / 86400000);
     let hours = Math.floor(discord.client.uptime / 3600000) % 24;
     let minutes = Math.floor(discord.client.uptime / 60000) % 60;
@@ -64,7 +64,6 @@ io.sockets.on('connection', function(sockets){
   
     var BOTuptime = `${days}d ${hours}h ${minutes}m ${seconds}s` 
     
-    // Emit count to browser 
     sockets.emit('uptime',{uptime:BOTuptime}); }, 1000);
 })
 

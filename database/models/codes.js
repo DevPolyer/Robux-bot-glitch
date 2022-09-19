@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const codesSchema = new mongoose.Schema({
    name: String,
+   guildId: String,
    prize: Number,
    users: [],
    blacklisted: [],
@@ -10,8 +11,8 @@ const codesSchema = new mongoose.Schema({
 });
 
 
-codesSchema.statics.createCode = async function(name, limit, prize, madeBy) {
-   await this.create({name, limit, prize, madeBy})
+codesSchema.statics.createCode = async function(name, limit, prize, madeBy, message) {
+   await this.create({name, limit, prize, madeBy, guildId: message.guild.id})
 }
 
 // usersSchema.statics.setUser = async function (userId) {

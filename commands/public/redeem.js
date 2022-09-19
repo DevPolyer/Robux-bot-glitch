@@ -6,7 +6,7 @@ module.exports.run = async (client, message, args) =>{
   const codename = args[0];
   if (codename.includes(" ")) return message.replyNoMention(`**لا يمكنك استعمال المسافات مع اسم الكود 😊**`);
 
-  const code = await codesSchema.findOne({name: codename});
+  const code = await codesSchema.findOne({name: codename, guildId: message.guild.id});
   if (!code) return message.replyNoMention(`**هذا الكود غير موجود او منتهي 😢**`);
 
   if (code.users.length >= code.limit) {

@@ -3,7 +3,6 @@ const { Admin } =  require("../config/config.json");
 const ms = require("ms");
 
 module.exports = async (client, message) => {
-  if (message.channel.type === "dm") return;
     if (message.author.bot) return;
 
     if (message.content.indexOf(client.config.prefix) !== 0) return;
@@ -15,7 +14,7 @@ module.exports = async (client, message) => {
     if (!cmd) return;
 
 
-    const key = `${message.author.id}-${message.guild.id}-${command}`
+    const key = message.channel.type === "dm" ? `${message.author.id}-${message.guild.id}-${command}` : `${message.author.id}-${command}`;
     const cooldown = await client.cooldown.get(key);
 
     if  (cooldown) {
