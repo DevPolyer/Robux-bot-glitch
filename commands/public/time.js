@@ -26,7 +26,7 @@ await noblox.setCookie(cookie).then(async (user) => {
         tran = tran.filter(r => r.isPending === true);
 
         const times = [];
-         
+      
         for (robux of tran) {
             var date_1 = new Date(robux.created.toString());
             const daysIn =  await momentWorkingdays.getWorkingDays([ date_1 ]);
@@ -45,6 +45,7 @@ await noblox.setCookie(cookie).then(async (user) => {
         .setThumbnail(data.data[0].imageUrl)
         .setTimestamp()
         message.replyNoMention(embed)
+
     })
 
     }).catch(e => {

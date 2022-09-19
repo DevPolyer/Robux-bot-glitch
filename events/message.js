@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
   
     const cmd = client.commands.get(command);
     if (!cmd) return;
-
+   message.channel.startTyping();
 
     const key = message.channel.type === "dm" ? `${message.author.id}-${message.guild.id}-${command}` : `${message.author.id}-${command}`;
     const cooldown = await client.cooldown.get(key);
