@@ -42,4 +42,6 @@ module.exports.details = {
     usage:`${prefix.prefix}tax`,
     guildOnly: true,
     owners: false,
+    example:`${prefix.prefix}tax 10`,
+    args: true,
 }
