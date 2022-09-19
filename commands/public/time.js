@@ -22,7 +22,7 @@ await noblox.setCookie(cookie).then(async (user) => {
             dateFormat: 'DD-MM-YYYY', 
         });
 
-        var tran = await noblox.getGroupTransactions(5210705, "Sale")
+        var tran = await noblox.getGroupTransactions(g.id, "Sale")
         tran = tran.filter(r => r.isPending === true);
 
         const times = [];
