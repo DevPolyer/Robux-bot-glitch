@@ -1,5 +1,6 @@
 const prefix = require('../../config/config.json');
 const noblox = require('noblox.js')
+const discord = require('discord.js');
 
 module.exports.run = async(client, message, args) =>{
      
@@ -13,7 +14,14 @@ module.exports.run = async(client, message, args) =>{
         await noblox.getGroup(groupId).then(async g => {
           var currentfunds = await noblox.getGroupFunds(g.id);
           var revenueSummary = await noblox.getGroupRevenueSummary(g.id, "Year")
-         message.replyNoMention(`**رصيد جروب ${g.name} الحالي هو ${currentfunds} \n\ الرصيد القادم هو ${revenueSummary.pendingRobux}**`)
+
+          const embed = new discord.MessageEmbed()
+          .setColor("RANDOM")
+          .setTitle(g.name)
+          .setDescription(`** - اجمالي الروبوكس : (\`${currentfunds}\`) \n\ - القادم من روبوكس : (\`${revenueSummary.pendingRobux}\`) **`);
+    
+          message.replyNoMention(embed)
+
     }).catch(e => {
       message.replyNoMention(`**يجب عليك تسجيل اي دي الجروب😢**`)   
     })

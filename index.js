@@ -10,7 +10,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-const port = config.port;
+port = config.port;
 
 app.use(express.static('./public'));
 app.use(express.static('./themes'));
@@ -64,8 +64,7 @@ io.sockets.on('connection', function(sockets){
   
     var BOTuptime = `${days}d ${hours}h ${minutes}m ${seconds}s` 
     
-    sockets.emit('uptime',{uptime:BOTuptime}); 
-  }, 1000);
+    sockets.emit('uptime',{uptime:BOTuptime}); }, 1000);
 })
 
 app.use(function(req,res){

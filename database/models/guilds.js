@@ -9,6 +9,7 @@ const guildsSchema = new mongoose.Schema({
   proofchannel: String,
   thanksChannel: String,
   groupId: Number,
+  clientRole: String,
   price: {type: Number, default: 1000},
   owner: String,
   thankschannel: Number,

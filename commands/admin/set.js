@@ -16,6 +16,8 @@ module.exports.run = async (client, message, args) => {
       {name: `**proofchannel**`, value: ` \`\`\` ${prefix.prefix}set proofchannel (channel)\`\`\` `},
       {name: `**price**`, value: ` \`\`\` ${prefix.prefix}set price (price) \`\`\` `},
       {name: `**owner**`, value: ` \`\`\` ${prefix.prefix}set owner (user) \`\`\` `},
+      {name: `**limit**`, value: ` \`\`\` ${prefix.prefix}set limit (buy | transfer) (number) \`\`\` `},
+      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set logs (channel) \`\`\` `},
       {name: `**balance of user**`, value: ` \`\`\` ${prefix.prefix}set balance (user) (+10 | -10)  \`\`\` `},
     ])
     .setTimestamp()
@@ -136,6 +138,36 @@ if (args[0].toLowerCase() === "balance" && args[1]) {
   }
   else message.replyNoMention(embed)
   
+};
+
+if (args[0].toLowerCase() === "limit" && args[1]) {
+ let helpEmbed = new discord.MessageEmbed()
+ .setColor("Blue")
+ .setDescription(`**${prefix.prefix}set limit (buy | transfer) (number)**`)
+
+ if (!['buy', "transfer"].includes(args[1])) return message.replyNoMention(helpEmbed);
+ if (!args[2] || !args[2].isPositiveInteger() ) return message.replyNoMention(helpEmbed);
+
+ if (data.limit[args[1]] === args[2]) return message.replyNoMention(`> **الحد الاقصي ل هذا الامر محدد هكذا بالفعل🤦‍♂️**`);
+
+ data.limit[args[1]] = args[2];
+ data.save();
+
+ message.replyNoMention(`> \`${args[1]}\` **تم تحديد الحد الاقصي ل امر** 🟢`)
+
+};
+
+if (args[0].toLowerCase() === "logs" && args[1]) {
+  const channel = await message.guild.channels.cache.get(args[1].toDiscordId());
+  if (!channel) return message.replyNoMention(`> **الرجاء تحديد روم  صالح للاتسخدام**`);
+
+  if (!channel) return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
+  if (channel.type !== "text") return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
+
+  data.proofchannel = channel.id;
+  data.save();
+
+  message.replyNoMention(`**تم تحديد روم الاثبات بنجاح**`);
 }
 
 

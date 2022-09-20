@@ -10,6 +10,7 @@ module.exports.run = async(client, message, args) =>{
     await client.database.servers.setGuild(message.guild.id);
     const data2 = await client.database.servers.findOne({guildId: message.guild.id});
 
+    console.log(data2)
     const price = data2.price;
 
     if (!args[0].isPositiveInteger()) return message.replyNoMention(`**الرجاء كتابه عدد صحيح ▫**`);
@@ -42,6 +43,4 @@ module.exports.details = {
     usage:`${prefix.prefix}tax`,
     guildOnly: true,
     owners: false,
-    example:`${prefix.prefix}tax 10`,
-    args: true,
 }
