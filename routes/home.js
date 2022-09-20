@@ -25,7 +25,7 @@ router.get('/home', ensureAuthenticated,(req, res) => {
         joinedDate:dateformat(`${discord.client.user.createdAt}`, 'dddd, mmmm dS, yyyy, h:MM TT'),
         prefix:config.prefix,
         number:number,
-        Latestversion:verL,
+        Latestversion: 2.2,
         Currentversion:ver.ver,
         theme:theme
     })
