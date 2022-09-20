@@ -24,5 +24,5 @@ module.exports.details = {
     description:'Statistics your BOT.',
     guildOnly: true,
     usage:`${prefix.prefix}stats`,
-    owners: true,
+    // owners: true,
 }

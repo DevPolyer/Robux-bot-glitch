@@ -9,7 +9,7 @@ module.exports.run = async(client, message, args) =>{
     let count = 0;
 
    for (let count = 0; count < 10 ; count++) {
-      let user =  client.users.cache.get(all[count].userId);
+      let user =  client.users.cache.get(all[count]? all[count].userId : "1");
       if (user && count !== 10) Tops.push(`**[#${count + 1}] - [${user.username.toLocaleString("ar-SA")}] - [${all[count].coins}]** \n\ `);
     }
 

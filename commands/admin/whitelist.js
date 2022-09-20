@@ -68,7 +68,7 @@ module.exports.run = async(client, message, args) => {
       });
 
     }
-    if (args[1].toLowerCase() === "remove") {
+    if (args[1] && args[1].toLowerCase() === "remove") {
      const userData = await ownersSchema.findOne({userId: user.id, guildId: message.guild.id})
      if (!userData) return message.replyNoMention(`**هذا العضو ليس لديه اي تحكمات بالبوت بالفعل😊**`)  
      userData.delete();
