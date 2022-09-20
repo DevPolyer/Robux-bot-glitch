@@ -1,6 +1,8 @@
 const noblox = require("noblox.js");
 const prefix = require('../../config/config.json');
-const axios = require("axios")
+const axios = require("axios");
+const { createCanvas, loadImage } = require('canvas');
+const { MessageAttachment } = require("discord.js");
 
 module.exports.run = async(client, message, args) =>{
 
@@ -30,7 +32,7 @@ module.exports.run = async(client, message, args) =>{
           var currentfunds = await noblox.getGroupFunds(group.id);
           if (currentfunds < args[0]) return message.replyNoMention(`**عذرا هذا العدد من الروبوكس غير متوفر في الجروب في الوقت الحالي 😢**`);
 
-          await noblox.groupPayout(group.id, clientId , args[0]).then(async() => {
+           await noblox.groupPayout(group.id, clientId , args[0]).then(async() => {
              data.coins -= Number(args[0]);
              data.save();
 
@@ -40,14 +42,41 @@ module.exports.run = async(client, message, args) =>{
              const proochannel = await client.channels.cache.get(proofchannel);
              if (!proochannel) return;
              
-             var options = {
-              method: 'GET',
-              url: `https://gold-psychedelic-fahrenheit.glitch.me/payout/${clientId}/${args[1]}/${args[0]}/${currentfunds}/${prefix.token}/${proochannel.id}/**bought by** <@!${message.author.id}>`,
-            }
-             axios.get(options.url)
+             let th = await noblox.getPlayerThumbnail(parseInt(clientId), 420, "png", true, "Headshot").then(async(a) => {
+              let url = "";
+              a.forEach(avatar => url = avatar.imageUrl);   
+      
+            const canvas = createCanvas(991, 172);
+            const ctx = canvas.getContext('2d')
+            const background = await loadImage('https://cdn.glitch.global/8e162bb4-d4c3-4bbc-8811-ac29c822a781/pay%20image%201.png?v=1657613444619');
+            ctx.beginPath();
+            ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+            ctx.font = '15px impact';
+            ctx.fillStyle = 'black';
+            ctx.fillText(args[0].toLocaleString().toString(), 802.5, 42.4);
+            ctx.font = "650 16px impact";
+            ctx.fillText(args[0].toLocaleString().toString(), 864.5, 82.5);
+            ctx.fillText(currentfunds.toString(), 830.5, 105.7);
+            ctx.font = "570 15.2px impact";
+            ctx.fillText(args[1].toString(), 61, 35);
+            ctx.font = '10px impact';
+            ctx.fillStyle = 'Gray';
+            ctx.fillText('Member', 65, 47);
+            ctx.closePath();
+            const userImage = await loadImage(url.toString());
+            ctx.beginPath();
+            ctx.arc(29, 34, 21, 0, Math.PI * 2 , true);
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 7;
+            ctx.stroke();
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(userImage, 11.5,16.5,35,35);
+            const attach = new MessageAttachment(canvas.toBuffer(), 'payout.png');
+            await proochannel.send(`تم الشراء بواسطه : <@${message.author.id}>`, attach)
 
+          });
         }).catch(e => {
-          console.log(e)
             message.reply(`**انت لم تتم اسبوعين في الجروب 😢🤔**`)
         })
       }).catch(e => {

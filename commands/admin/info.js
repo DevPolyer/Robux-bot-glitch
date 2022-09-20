@@ -36,5 +36,5 @@ module.exports.details = {
     description: 'all guild info',
     usage:`${prefix.prefix}info`,
     guildOnly: true,
-    owners: true,
+    whitelist: true,
 }

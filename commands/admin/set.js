@@ -18,6 +18,7 @@ module.exports.run = async (client, message, args) => {
       {name: `**owner**`, value: ` \`\`\` ${prefix.prefix}set owner (user) \`\`\` `},
       {name: `**limit**`, value: ` \`\`\` ${prefix.prefix}set limit (buy | transfer) (number) \`\`\` `},
       {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set logs (channel) \`\`\` `},
+      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set thx (channel) \`\`\` `},
       {name: `**balance of user**`, value: ` \`\`\` ${prefix.prefix}set balance (user) (+10 | -10)  \`\`\` `},
     ])
     .setTimestamp()
@@ -45,7 +46,7 @@ module.exports.run = async (client, message, args) => {
     .setColor("BLUE")
     .setDescription(`**الكوكي الذي ادخلته غير صحيح قم بتباع التعليمات للحصول علي كوكي صحيح **`)
     .setAuthor(message.author.username, message.author.avatarURL())
-   // .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
+    .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
     .setTimestamp()
     message.replyNoMention(embed)
    })
@@ -164,11 +165,24 @@ if (args[0].toLowerCase() === "logs" && args[1]) {
   if (!channel) return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
   if (channel.type !== "text") return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
 
-  data.proofchannel = channel.id;
+  data.logsChannel = channel.id;
   data.save();
 
   message.replyNoMention(`**تم تحديد روم الاثبات بنجاح**`);
 }
+
+if (args[0].toLowerCase() === "thankschannel" && args[1]) {
+  const channel = await message.guild.channels.cache.get(args[1].toDiscordId());
+  if (!channel) return message.replyNoMention(`> **الرجاء تحديد روم  صالح للاتسخدام**`);
+
+  if (!channel) return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
+  if (channel.type !== "text") return message.replyNoMention(`**لا يمكنني العثور علي هذه الروم 😢**`);
+
+  data.thanksChannel = channel.id;
+  data.save();
+
+  message.replyNoMention(`**تم تحديد روم الشكر بنجاح**`);
+} 
 
 
 
@@ -179,5 +193,5 @@ module.exports.details = {
     description: 'to setup the bot',
     guildOnly: true,
     usage:`${prefix.prefix}set`,
-    owners: true,
+    whitelist: true,
 }

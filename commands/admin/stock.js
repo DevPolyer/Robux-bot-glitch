@@ -36,5 +36,5 @@ module.exports.details = {
     description: 'to Know current group funds',
     usage:`${prefix.prefix}stock`,
     guildOnly: true,
-    owners: true,
+    whitelist: true,
 }

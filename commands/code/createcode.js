@@ -27,6 +27,6 @@ module.exports.details = {
     example: `${prefix.prefix}createcode hello 10 5`,
     guildOnly: true,
     usage:`${prefix.prefix}createcode (codename) (limit) (prize)`,
-    owners: true,
+    whitelist: true,
     args: true,
 }

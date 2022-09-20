@@ -3,7 +3,7 @@ const prefix = require('../../config/config.json')
 
 module.exports.run = async (client, message, args) =>{
  
-    if (!message.channel.name.startsWith("ticket")) return;
+    if (!message.channel.name.startsWith("ticket")) return message.replyNoMention(`**يمكن استخدام هذا الامر داخل التكت فقط**`)
     
     
     let user = message.author;
