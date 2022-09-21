@@ -12,7 +12,7 @@ module.exports.run = async(client, message, args) =>{
     .setAuthor(client.user.username, client.user.avatarURL())
     .setThumbnail(message.guild.iconURL())
     .setDescription(`
-        **[add theBot](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)**
+        **[add theBot](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)** | **[SUPPORT](https://discord.gg/zFTsUMrbph)**
      \n\
     🗄 Total Guilds: **${number.formatNumber(client.guilds.cache.size)}**
     👥 Total Users: **${number.formatNumber(client.users.cache.size)}**
