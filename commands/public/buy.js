@@ -18,6 +18,8 @@ module.exports.run = async (client, message, args) =>{
     const owner = data2.owner || message.guild.ownerID;
     const limit = data2.limit.buy || 5;
     const price = data2.price || 1000;
+    const logs = await message.guild.channels.cache.get(data2.logsChannel || "1");
+    const role = await message.guild.roles.cache.get(data2.clientRole);
 
     if (limit && limit > args[0]) return message.replyNoMention(`**الحد الاقصي للشراء ${limit}**`);
     
@@ -49,9 +51,11 @@ module.exports.run = async (client, message, args) =>{
             
             client.Buycooldown.delete(`${message.author.id}-${message.guild.id}`);
             message.replyNoMention(`**تمت عمليه الشراء سوف يتم قفل التكت 😊❤**`);
+            if (role)  message.author.roles.add(role)
 
             const channel = await client.channels.cache.get(message.channel.id);
             if (channel) {
+                if (logs) logs.send(`**🟢  ${data.coins}روبوكس رصيده الحالي هو ${args[0]}بشراء <@${message.author.id}> قام **`)
                 setTimeout(() => channel.delete(), 5000);
             }
 

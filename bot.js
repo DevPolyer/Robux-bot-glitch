@@ -11,22 +11,19 @@ const settings = require('./config/settings.json');
 client.commands = new Enmap();
 client.database = {
   users: require("./database/models/users"),
-  servers: require("./database/models/guilds")
+  servers: require("./database/models/guilds"),
+  commands: require("./database/models/commands")
 }
 
 client.config = config;
 client.cooldown = new Discord.Collection()
 client.Buycooldown = new Discord.Collection()
 
-fs.readdir("./events/", (err, files) => {
-  if (err) return console.error(err);
-  files.forEach(file => {
-    const event = require(`./events/${file}`);
-    let eventName = file.split(".")[0];
-    client.on(eventName, event.bind(null, client));
-  });
-});
-
+for (file of fs.readdirSync("events")) {
+  const event = require("./events/"+file);
+  if (!event.name) client.on(file.split(".")[0], event.bind(null, client));
+  if (event.name) client.on(event.name,  (...args) => event.execute(...args, client));
+}
 
 console.log('Loading Commands...')
 for (folder of fs.readdirSync("commands").filter(folder => folder !== "index.js")) {

@@ -10,7 +10,7 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
-port = config.port;
+const port = config.port;
 
 app.use(express.static('./public'));
 app.use(express.static('./themes'));
@@ -49,8 +49,10 @@ app.use('/', require('./routes/settings.js'));
 app.use('/', require('./routes/guilds.js'));
 app.use('/', require('./routes/support.js'));
 app.use('/', require('./routes/plugins.js'));
-
 app.use('/login', require('./routes/login.js'));
+app.use(function(req,res){
+  res.status(404).render('error_pages/404');
+});
 
 http.listen(port)
 
@@ -62,13 +64,8 @@ io.sockets.on('connection', function(sockets){
     let minutes = Math.floor(discord.client.uptime / 60000) % 60;
     let seconds = Math.floor(discord.client.uptime / 1000) % 60;
   
-    var BOTuptime = `${days}d ${hours}h ${minutes}m ${seconds}s` 
-    
+    var BOTuptime = `${days}d ${hours}h ${minutes}m ${seconds}s`     
     sockets.emit('uptime',{uptime:BOTuptime}); }, 1000);
 })
-
-app.use(function(req,res){
-  res.status(404).render('error_pages/404');
-});
 
 require("./antiCrush")(discord.client)

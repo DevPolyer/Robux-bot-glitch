@@ -4,10 +4,9 @@ const ms = require("ms");
 const ownersSchema = require(`../database/models/whitelist`);
 
 module.exports = async (client, message) => {
-    if (message.author.bot) return;
-
-    const guildData = await client.database.servers.findOne({guildId: message.guild.id}); 
+    if (message.author.bot || message.channel.type === "dm") return;
   
+    const guildData = await client.database.servers.findOne({guildId: message.guild.id}); 
     const bot = message.guild.members.cache.get(client.user.id);
     if (!bot.hasPermission(["SEND_MESSAGES", "MANAGE_MESSAGES", "VIEW_CHANNEL"])) return;
     if (guildData && guildData.thanksChannel) {
@@ -19,12 +18,11 @@ module.exports = async (client, message) => {
   
     const args = message.content.slice(client.config.prefix.length).split(/ +/g);
     const command = args.shift().toLowerCase();
-  
+
     const cmd = client.commands.get(command);
     if (!cmd) return;
+    const commandData = await client.database.commands.get(cmd.details.name, message.guild.id);
 
-    message.channel.startTyping();
-    setTimeout(() =>  message.channel.stopTyping(), 5000)
 
     const key = message.channel.type !== "dm" ? `${message.author.id}-${message.guild.id}-${command}` : `${message.author.id}-${command}`;
     const cooldown = await client.cooldown.get(key);
@@ -36,7 +34,6 @@ module.exports = async (client, message) => {
           m.delete()
         }, 5000)
       })
-
       if (!cooldown.replyied)  client.cooldown.set(key, {
         time: cooldown.time,
         replyied: true
@@ -48,6 +45,7 @@ module.exports = async (client, message) => {
 
     const stuts = fs.readFileSync('config/settings.json', "utf-8").includes(command)
     if (stuts) return message.replyNoMention(`**هذا الامر مقفل  😢**`);
+    if (commandData.disabled)return message.replyNoMention(`**هذا الامر مقفل  😢**`);
 
      if (cmd.details.owners && message.author.id !== message.guild.ownerID) return message.replyNoMention(`> **ليس لديك صلاحيات لاستخدام هذا الامر 😢**`);
 
@@ -78,4 +76,6 @@ module.exports = async (client, message) => {
     }
    
     cmd.run(client, message, args);
+    message.channel.startTyping();
+    setTimeout(() =>  message.channel.stopTyping(), 5000)
 };

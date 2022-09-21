@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args) => {
       {name: `**owner**`, value: ` \`\`\` ${prefix.prefix}set owner (user) \`\`\` `},
       {name: `**limit**`, value: ` \`\`\` ${prefix.prefix}set limit (buy | transfer) (number) \`\`\` `},
       {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set logs (channel) \`\`\` `},
-      {name: `**thanks**`, value: ` \`\`\` ${prefix.prefix}set thankschannel (channel) \`\`\` `},
+      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set thx (channel) \`\`\` `},
       {name: `**balance of user**`, value: ` \`\`\` ${prefix.prefix}set balance (user) (+10 | -10)  \`\`\` `},
     ])
     .setTimestamp()
@@ -111,6 +111,17 @@ if (args[0].toLowerCase() === "proofchannel" && args[1]) {
 
   message.replyNoMention(`**تم تحديد روم الاثبات بنجاح**`);
 }
+
+if (args[0].toLowerCase() === "clientrole" && args[1]) {
+  let role = await message.guild.roles.cache.get(args[1].toDiscordId());
+  if (!role || ["@everyone", "here"].includes(role.name)) return message.replyNoMention(`**لا يمكنني العثور علي هذه الرول 😢**`);
+
+  data.clientRole = role.id;
+  data.save();
+
+  message.replyNoMention(`**تم تحديد رول المشتري بنجاح**`);
+}
+
 
 if (args[0].toLowerCase() === "balance" && args[1]) {
 
