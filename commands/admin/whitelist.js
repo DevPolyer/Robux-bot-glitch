@@ -6,7 +6,7 @@ module.exports.run = async(client, message, args) => {
     const user = await message.guild.members.cache.get(args[0].toDiscordId());
     if (!user) return message.replyNoMention(`**لا يمكنني العثور علي هذا العضو**`);
     if (user.bot) return message.replyNoMention(`**لا يمكنن للبوتات التحكم باوامر الاداره**`);
-    if (user.id === message.guildID) return message.replyNoMention(`> **اونر السيرفر يستطيع التحكم في كل الاوامر بالفعل**`);
+    if (user.id === message.guild.ownerID) return message.replyNoMention(`> **اونر السيرفر يستطيع التحكم في كل الاوامر بالفعل**`);
 
     const embed = new discord.MessageEmbed()
     .setAuthor(message.author.username, message.author.avatarURL())
@@ -51,20 +51,21 @@ module.exports.run = async(client, message, args) => {
 
         yes$no.once("collect", m => {
             if (main && m.content === "yes") {
-                main.delete()
-                message.delete()
+                main.delete().catch(e => {})
+                message.delete().catch(e => {})
                 message.replyNoMention(`**تم اضافه <@${user.id}> للتحكم في بعض الاوامر**`)
                 ownersSchema.set(user.id, message, commands)
             }
-            if (main && m.content === "no") {
-                main.delete()
-                message.delete()
+            if (main && m.content === "no") {  
+                main.delete().catch(e => {})
+                message.delete().catch(e => {})
             }
         })
 
         yes$no.on("end", m => {
-            if (main) main.delete()
-        })
+            if (main)  main.delete()
+        });
+
       });
 
     }
