@@ -3,6 +3,7 @@ const prefix = require("../config/config.json");
 module.exports = {
     name: "message",
     async execute(message, client) {
+      if (message.channel.type === "dm") return
 
         const args = message.content.split(/ +/g);
         const cmd = args.shift();        
