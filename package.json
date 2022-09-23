@@ -1,21 +1,13 @@
 {
   "name": "discord-bot-dashboard-v2",
   "version": "1.0.0",
-  "description": "Discord BOT Dashboard is made to make Discord BOT Development easy, designed to create applications without having to write a single line of code while using a user friendly Web-Dashboard!",
+  "description": "Robux-dashboard-bot!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LachlanDev/Discord-BOT-Dashboard-V2.git"
-  },
-  "author": "LachlanDev",
+  "author": "DevPolyer",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LachlanDev/Discord-BOT-Dashboard-V2/issues"
-  },
-  "homepage": "https://github.com/LachlanDev/Discord-BOT-Dashboard-V2#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "canvas": "^2.9.3",
@@ -36,15 +28,18 @@
     "lolcatjs": "^2.4.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
-    "moment-working-days": "^0.1.8",
     "mongoose": "^6.4.2",
     "noblox.js": "^4.13.1",
     "node-fetch": "^2.6.2",
-    "nodemon": "^2.0.20",
     "passport": "^0.4.1",
     "passport-discord": "^0.1.4",
     "request": "^2.88.2",
     "socket.io": "^4.2.0",
-    "unix-timestamp": "^1.0.2"
+    "moment-working-days": "^0.1.8",
+    "unix-timestamp": "^1.0.2",
+    "@haileybot/captcha-generator": "^1.7.0"
+  },
+  "engines": {
+    "node": ">=16.x"
   }
 }
