@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args) => {
       {name: `**owner**`, value: ` \`\`\` ${prefix.prefix}set owner (user) \`\`\` `},
       {name: `**limit**`, value: ` \`\`\` ${prefix.prefix}set limit (buy | transfer) (number) \`\`\` `},
       {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set logs (channel) \`\`\` `},
-      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set tha (channel) \`\`\` `},
+      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set thankschannel (channel) \`\`\` `},
       {name: `**balance of user**`, value: ` \`\`\` ${prefix.prefix}set balance (user) (+10 | -10)  \`\`\` `},
     ])
     .setTimestamp()
