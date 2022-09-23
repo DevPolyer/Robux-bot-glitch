@@ -20,7 +20,6 @@ module.exports.run = async(client, message, args) => {
         .setColor("RANDOM")
         .setAuthor(message.author.username, message.author.avatarURL())
         .setTitle(`Help  commands`)
-        .setURL("https://discord.gg/zFTsUMrbph")
         .setThumbnail(message.guild.iconURL())
         .setTimestamp()
         .setFooter(`${prefix.prefix}help (command) للمساعده مع الاوامر الاخري`);
@@ -41,7 +40,6 @@ module.exports.run = async(client, message, args) => {
    .setColor("RANDOM")
    .setAuthor(message.author.username, message.author.avatarURL())
    .setTitle(`Help all commands`)
-   .setURL("https://discord.gg/zFTsUMrbph")
    .setThumbnail(message.guild.iconURL())
    .setTimestamp()
    .setFooter(`${prefix.prefix}help (command) للمساعده مع الاوامر`);

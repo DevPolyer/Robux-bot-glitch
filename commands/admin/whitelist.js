@@ -28,13 +28,13 @@ module.exports.run = async(client, message, args) => {
       var commands = [];
 
       await client.commands.filter(cmd => cmd.details.whitelist).forEach((value, key) => {
-        embed.setTitle(`الاوامر الذي يستطيع التحكم بها`);
+        embed.setTitle(`الاوامر الذ يستطيع التحكم بها`);
         commands.push(key)
       });
       embed.setDescription(commands.join("\n\ ") + "\n\ \n\ لمسح اي امر من هذه الاوامر قم بكتابه اسمه فقط  \n\ `yes` لتاكيد اضافه هذا العضو ك متحكم في هذه الاوامر فقط اكتب \n\ `no` للالغاء");
 
       const filter = m => m.author.id === message.author.id;
-      const yes$no_filter = m => m.author.id === message.author.id && ["yes", "no"].includes( m.content);
+      const yes$no_filter = m => m.author.id === message.author.id && ["yes", "no"].includes(m.content);
     
       const collector = message.channel.createMessageCollector(filter, { time: 30000 });
       const yes$no = message.channel.createMessageCollector(yes$no_filter, { time: 30000 });
@@ -45,18 +45,20 @@ module.exports.run = async(client, message, args) => {
             
             if (main && commands.includes(m.content)) {
                 collect(main)
-              //  m.delete();
+                m.delete();
             }
         });
 
         yes$no.once("collect", m => {
             if (main && m.content === "yes") {
-                main.delete()
+                main.delete().catch(e => {})
+                message.delete().catch(e => {})
                 message.replyNoMention(`**تم اضافه <@${user.id}> للتحكم في بعض الاوامر**`)
                 ownersSchema.set(user.id, message, commands)
             }
             if (main && m.content === "no") {  
-                main.delete()
+                main.delete().catch(e => {})
+                message.delete().catch(e => {})
             }
         })
 

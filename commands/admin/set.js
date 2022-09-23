@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args) => {
       {name: `**owner**`, value: ` \`\`\` ${prefix.prefix}set owner (user) \`\`\` `},
       {name: `**limit**`, value: ` \`\`\` ${prefix.prefix}set limit (buy | transfer) (number) \`\`\` `},
       {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set logs (channel) \`\`\` `},
-      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set thankschannel (channel) \`\`\` `},
+      {name: `**logs**`, value: ` \`\`\` ${prefix.prefix}set thx (channel) \`\`\` `},
       {name: `**balance of user**`, value: ` \`\`\` ${prefix.prefix}set balance (user) (+10 | -10)  \`\`\` `},
     ])
     .setTimestamp()
@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args) => {
     .setColor("BLUE")
     .setDescription(`**الكوكي الذي ادخلته غير صحيح قم بتباع التعليمات للحصول علي كوكي صحيح **`)
     .setAuthor(message.author.username, message.author.avatarURL())
-   // .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
+    .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
     .setTimestamp()
     message.replyNoMention(embed)
    })

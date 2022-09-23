@@ -2,7 +2,7 @@ const noblox = require("noblox.js");
 const prefix = require('../../config/config.json');
 const axios = require("axios");
 const { createCanvas, loadImage } = require('canvas');
-const { MessageAttachment } = require("discord.js");
+const { MessageAttachment } = require("discord.js")
 
 module.exports.run = async(client, message, args) =>{
 
@@ -30,19 +30,62 @@ module.exports.run = async(client, message, args) =>{
           if (!groups.includes(groupId)) return message.replyNoMention(`**انت غير متواجد في الجروب 😢😢**`);
           
           var currentfunds = await noblox.getGroupFunds(group.id);
-          if (currentfunds < args[0]) return message.replyNoMention(`**عذرا هذا العدد من الروبوكس غير متوفر في الجروب في الوقت الحالي 😢**`);
 
-           await noblox.groupPayout(group.id, clientId , args[0]).then(async() => {
-             data.coins -= Number(args[0]);
-             data.save();
+          check(message, args, group, clientId, data, client, currentfunds, proofchannel)
+          // if (currentfunds < args[0]) return message.replyNoMention(`**عذرا هذا العدد من الروبوكس غير متوفر في الجروب في الوقت الحالي 😢**`);
 
-             currentfunds = currentfunds - args[0];
-             message.replyNoMention(`**تم تحويل  ${args[0] + " روبوكس "} الي حسابك** 💕`);
-         
-             const proochannel = await client.channels.cache.get(proofchannel);
-             if (!proochannel) return;
-             
-             let th = await noblox.getPlayerThumbnail(parseInt(clientId), 420, "png", true, "Headshot").then(async(a) => {
+   
+      }).catch(e => {
+        console.log(e)
+        message.replyNoMention(`**هذا الامر مقفل حاليا 😢**`)
+      })
+     }).catch(e => {
+       message.replyNoMention(`**لا يمكنني العثور علي هذا اللاعب في روبلوكس 😢🤔**`)
+     });
+    }).catch(e => {
+        message.replyNoMention(`**هذا الامر مقفل حاليا 😢**`)
+    });
+    
+}
+module.exports.details = {
+    name: 'transfer',
+    icon:'https://cdn.discordapp.com/avatars/365350852967399454/ce6e6e91fa887aa86e23ef356c9878fe',
+    description: 'transfer your coins to robux',
+    usage:`${prefix.prefix}transfer (amount) (user)`,
+    example:`${prefix.prefix}transfer 1 ziademad2008 `,
+    guildOnly: true,
+    args: true,
+    author: true,
+}
+
+function check(message, args, group, clientId, data, client, currentfunds, proofchannel) {
+
+
+  message.replyNoMention(`> **هل انت متاكد من انك تريد تحويل ${args[0]} الي ${args[1]}**`).then(async main => {
+
+    main.react("🟢");
+    main.react("🔴");
+
+    const yes = (reaction, user) => { return reaction.emoji.name === '🟢' && user.id === message.author.id};
+    const no = (reaction, user) => { return reaction.emoji.name === '🔴' && user.id === message.author.id};
+
+    const yesC = main.createReactionCollector(yes, { time: 15000 });
+    const noC = main.createReactionCollector(no, { time: 15000 });
+
+    yesC.once('collect', async (reaction, user) => {
+      main.delete();
+      yesC.stop();
+      await noblox.groupPayout(group.id, clientId , args[0]).then(async() => {
+        data.coins -= Number(args[0]);
+        data.save();
+  
+        currentfunds = currentfunds - args[0];
+        message.replyNoMention(`**تم تحويل  ${args[0] + " روبوكس "} الي حسابك** 💕`);
+   
+        const proochannel = await client.channels.cache.get(proofchannel);
+        if (!proochannel) return;
+
+            let th = await noblox.getPlayerThumbnail(parseInt(clientId), 420, "png", true, "Headshot").then(async(a) => {
               let url = "";
               a.forEach(avatar => url = avatar.imageUrl);   
       
@@ -76,27 +119,15 @@ module.exports.run = async(client, message, args) =>{
             await proochannel.send(`تم الشراء بواسطه : <@${message.author.id}>`, attach)
 
           });
-        }).catch(e => {
-            message.reply(`**انت لم تتم اسبوعين في الجروب 😢🤔**`)
-        })
-      }).catch(e => {
-        message.replyNoMention(`**هذا الامر مقفل حاليا 😢**`)
-      })
-     }).catch(e => {
-       message.replyNoMention(`**لا يمكنني العثور علي هذا اللاعب في روبلوكس 😢🤔**`)
-     });
-    }).catch(e => {
-        message.replyNoMention(`**هذا الامر مقفل حاليا 😢**`)
-    });
+
     
-}
-module.exports.details = {
-    name: 'transfer',
-    icon:'https://cdn.discordapp.com/avatars/365350852967399454/ce6e6e91fa887aa86e23ef356c9878fe',
-    description: 'transfer your coins to robux',
-    usage:`${prefix.prefix}transfer (amount) (user)`,
-    example:`${prefix.prefix}transfer 1 ziademad2008 `,
-    guildOnly: true,
-    args: true,
-    author: true,
+       }).catch(e => {
+         message.reply(`**انت لم تتم اسبوعين في الجروب 😢🤔**`)
+       })
+    });
+
+    noC.once("collect", () => main.delete());
+
+    yesC.once("end", () => main.delete());
+  })
 }
