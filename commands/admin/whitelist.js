@@ -28,7 +28,7 @@ module.exports.run = async(client, message, args) => {
       var commands = [];
 
       await client.commands.filter(cmd => cmd.details.whitelist).forEach((value, key) => {
-        embed.setTitle(`الاوامر الذ يستطيع التحكم بها`);
+        embed.setTitle(`الاوامر الذي يستطيع التحكم بها`);
         commands.push(key)
       });
       embed.setDescription(commands.join("\n\ ") + "\n\ \n\ لمسح اي امر من هذه الاوامر قم بكتابه اسمه فقط  \n\ `yes` لتاكيد اضافه هذا العضو ك متحكم في هذه الاوامر فقط اكتب \n\ `no` للالغاء");
@@ -51,14 +51,12 @@ module.exports.run = async(client, message, args) => {
 
         yes$no.once("collect", m => {
             if (main && m.content === "yes") {
-                main.delete().catch(e => {})
-                message.delete().catch(e => {})
+                main.delete()
                 message.replyNoMention(`**تم اضافه <@${user.id}> للتحكم في بعض الاوامر**`)
                 ownersSchema.set(user.id, message, commands)
             }
             if (main && m.content === "no") {  
-                main.delete().catch(e => {})
-                message.delete().catch(e => {})
+                main.delete()
             }
         })
 
