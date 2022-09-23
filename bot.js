@@ -35,7 +35,7 @@ for (folder of fs.readdirSync("commands").filter(folder => folder !== "index.js"
   }
 }
 
-client.login(config.token)
+client.login(config.token);
 require("./database/connect");
 require('./utils/prototypes');
 exports.client = client;
