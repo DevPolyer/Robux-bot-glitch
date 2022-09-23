@@ -53,7 +53,9 @@ module.exports.details = {
     name: 'trade',
     icon:'https://cdn.discordapp.com/avatars/365350852967399454/ce6e6e91fa887aa86e23ef356c9878fe',
     description: 'trade with user ',
-    usage:`${prefix.prefix}Balance`,
+    usage:`${prefix.prefix}trade (user) (amount)`,
+    example:`${prefix.prefix}trade 860865950945378325 100 `,
     guildOnly: true,
+    args: true,
 }
 

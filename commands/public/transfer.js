@@ -28,11 +28,10 @@ module.exports.run = async(client, message, args) =>{
          const groups = [];;
           await noblox.getGroups(clientId).then(async result => await result.forEach(group => groups.push(group.Id)));
           if (!groups.includes(groupId)) return message.replyNoMention(`**انت غير متواجد في الجروب 😢😢**`);
-          
           var currentfunds = await noblox.getGroupFunds(group.id);
 
-          check(message, args, group, clientId, data, client, currentfunds, proofchannel)
-          // if (currentfunds < args[0]) return message.replyNoMention(`**عذرا هذا العدد من الروبوكس غير متوفر في الجروب في الوقت الحالي 😢**`);
+         if (currentfunds < args[0]) return message.replyNoMention(`**عذرا هذا العدد من الروبوكس غير متوفر في الجروب في الوقت الحالي 😢**`);
+          check(message, args, group, clientId, data, client, currentfunds, proofchannel);
 
    
       }).catch(e => {
@@ -69,8 +68,8 @@ function check(message, args, group, clientId, data, client, currentfunds, proof
     const yes = (reaction, user) => { return reaction.emoji.name === '🟢' && user.id === message.author.id};
     const no = (reaction, user) => { return reaction.emoji.name === '🔴' && user.id === message.author.id};
 
-    const yesC = main.createReactionCollector(yes, { time: 15000 });
-    const noC = main.createReactionCollector(no, { time: 15000 });
+    const yesC = main.createReactionCollector(yes, { time: 9000 });
+    const noC = main.createReactionCollector(no, { time: 9000 });
 
     yesC.once('collect', async (reaction, user) => {
       main.delete();
