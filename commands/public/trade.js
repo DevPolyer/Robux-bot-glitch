@@ -35,7 +35,7 @@ module.exports.run = async(client, message, args) =>{
 
                     data.coins -= amount;
                     data.save();
-                    +data2.coins + +amount;
+                    data2.coins = +data2.coins + +amount;
                     data2.save();
                     m.delete()
                     message.replyNoMention(`**<@${user.id}> الي <@${message.author.id}> من قبل  \`${amount}\` تم تحويل**`)
