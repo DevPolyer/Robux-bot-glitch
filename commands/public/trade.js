@@ -11,6 +11,7 @@ module.exports.run = async(client, message, args) =>{
     const user = await message.guild.members.cache.get(args[0].toDiscordId());
     if (!user) return message.replyNoMention(`> **لايمكنني العثور علي هذا العضو**`);
     if (user.bot) return message.replyNoMention(`> **البوت ليس لديه حساب 🔴**`);
+    if (user.id === message.author.id) return message.replyNoMention("> **لا يمكنك تحويل روبوكس لنفسك**")
     db.setUser(user.id,  message.guild.id);
     const data2 = await db.findOne({userId: user.id, guildId: message.guild.id});
 
