@@ -12,7 +12,7 @@ module.exports = {
         
         if (!command) return;
         message.content = `${prefix.prefix}${command.name} ${args.toString().replace(/\,/gi, " ")}`;
-        return require("./message")(client, message)
+        return require("./message")(client, message);
         
     }
 }

@@ -45,7 +45,7 @@ module.exports.run = async(client, message, args) => {
             
             if (main && commands.includes(m.content)) {
                 collect(main)
-                m.delete();
+              //  m.delete();
             }
         });
 
