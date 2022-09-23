@@ -46,7 +46,7 @@ module.exports.run = async (client, message, args) => {
     .setColor("BLUE")
     .setDescription(`**الكوكي الذي ادخلته غير صحيح قم بتباع التعليمات للحصول علي كوكي صحيح **`)
     .setAuthor(message.author.username, message.author.avatarURL())
-    .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
+   // .setImage(`https://cdn.discordapp.com/attachments/1019914674940162068/1020988784667545600/IMG_20220918_112416.jpg`)
     .setTimestamp()
     message.replyNoMention(embed)
    })
