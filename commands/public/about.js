@@ -15,7 +15,7 @@ module.exports.run = async(client, message, args) =>{
         **[add theBot](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=8&scope=bot%20applications.commands)**
      \n\
     🗄 Total Guilds: **${number.formatNumber(client.guilds.cache.size)}**
-    👥 Total Users: **${number.formatNumber(client.users.cache.size)}**
+    👥 Total Users: **${client.users.cache.size}**
     💻 Total Commands: **${number.formatNumber(client.commands.size)}**
     ⏳ Uptime: **${duration}**
     `)
