@@ -51,7 +51,7 @@ module.exports.run = async (client, message, args) =>{
             
             client.Buycooldown.delete(`${message.author.id}-${message.guild.id}`);
             message.replyNoMention(`**تمت عمليه الشراء سوف يتم قفل التكت 😊❤**`);
-            if (role)  message.author.roles.add(role)
+          //  if (role)  message.author.roles.add(role)
 
             const channel = await client.channels.cache.get(message.channel.id);
             if (channel) {

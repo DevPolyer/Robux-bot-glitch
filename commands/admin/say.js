@@ -19,7 +19,7 @@ module.exports.details = {
     description: 'say command',
     usage:`${prefix.prefix}say`,
     guildOnly: true,
-    whitelist: false,
+    whitelist: true,
 }
 
 async function getType(message, main) {
