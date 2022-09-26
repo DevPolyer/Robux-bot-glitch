@@ -27,13 +27,13 @@ module.exports.run = async (client, message, args) => {
   }
 
   if (args[0].toLowerCase() === "cookie" && args[1]) {
-    if (data.cookie === args[1]) {
+    
+
+   await noblox.setCookie(args[1]).then(async user => {
+if (data.cookie === args[1]) {
         message.delete();
         return message.replyNoMention(`**هذا الكوكي محدد  بالفعل 😂**`)
     };
-
-   await noblox.setCookie(args[1]).then(async user => {
-
        data.cookie = args[1];
        data.save();
 
