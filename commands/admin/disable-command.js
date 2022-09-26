@@ -4,7 +4,7 @@ const noblox = require("noblox.js");
 
 module.exports.run = async (client, message, args) => {
    const command = await client.commands.get(args[0]);
-   if (!command) return message.replyNoMention(`**لا يمكنني العثور علي هذا الامر 🔴**`);
+   if (!command || args[0] === "enable-command") return message.replyNoMention(`**لا يمكنني العثور علي هذا الامر 🔴**`);
  
    const commandData = await client.database.commands.get(command.details.name, message.guild.id);
   

@@ -33,10 +33,10 @@ module.exports.run = async (client, message, args) =>{
 module.exports.details = {
     name: 'redeem',
     icon:'https://cdn.discordapp.com/avatars/365350852967399454/ce6e6e91fa887aa86e23ef356c9878fe',
-    description: 'get all code information',
+    description: 'redeem a code',
     guildOnly: true,
-    usage:`${prefix.prefix}codeinfo (code)`,
-    example:`${prefix.prefix}codeinfo 5k-members`,
+    usage:`${prefix.prefix}redeem (code)`,
+    example:`${prefix.prefix}redeem 5k-members`,
     args: true,
     author: true,
 }
