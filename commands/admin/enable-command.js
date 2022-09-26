@@ -23,4 +23,4 @@ module.exports.details = {
     example: `${prefix.prefix}enable-command buy`,
     whitelist: true,
     args: true,
-}
+};
