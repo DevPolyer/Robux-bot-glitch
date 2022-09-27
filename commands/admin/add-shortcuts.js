@@ -27,3 +27,4 @@ module.exports.details = {
     whitelist: true,
     args: true,
 }
+

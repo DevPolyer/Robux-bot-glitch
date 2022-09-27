@@ -40,7 +40,11 @@ for (let folder of fs.readdirSync("commands").filter(folder => folder !== "index
   }
 }
 
-client.login(token);
+let e = false;
+client.login(token).catch(e => {
+  e = true;
+})
+return e;
 
 }
 
@@ -49,4 +53,4 @@ client.login(token);
 require("./database/connect");
 require('./utils/prototypes');
 exports.client = client;
-exports.setBot = setBot;
+module.exports.setBot = setBot;
