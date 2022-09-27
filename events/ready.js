@@ -6,7 +6,7 @@ const discord = require('../bot')
 module.exports = (client) => {
 
 
-    console.clear()
+//    console.clear()
     console.log('Launched Succesfully...')
     console.log('Version:',`${vers.ver}`)
     console.log('Prefix:',`${config.prefix}\n`)

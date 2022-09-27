@@ -30,12 +30,12 @@ for (let file of fs.readdirSync("events")) {
   if (event.name) client.on(event.name,  (...args) => event.execute(...args, client));
 }
 
-console.log('Loading Commands...')
+//console.log('Loading Commands...')
 for (let folder of fs.readdirSync("commands").filter(folder => folder !== "index.js")) {
   for (let file of fs.readdirSync("commands/"+folder)) {
     const cmd = require("./commands/"+folder+"/"+file);
     cmd.category = folder;
-    console.log(`[+] ${cmd.details.name}`);
+    //console.log(`[+] ${cmd.details.name}`);
     client.commands.set(cmd.details.name, cmd);
   }
 }

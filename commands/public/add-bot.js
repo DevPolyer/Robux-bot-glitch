@@ -4,7 +4,8 @@ const newBot = new discord.Client();
 const setBot  = require("../../bot.js");
 const Bots = require("../../database/models/bots");
 
-module.exports.run = async(client, message, args) =>{
+module.exports.run = async(client, message, args) => {
+  if (client.user.id !== "1015952224003829781") return ;
   message.replyNoMention("**قم بارسال توكن البوت اذا ادخلت توكن خاطي لم يتم تشغيل البوت**").then(main => {
     getToken(main, message);
   })
@@ -17,6 +18,7 @@ module.exports.details = {
     usage:`${prefix.prefix}add-bot (token)`,
     guildOnly: true,
     owners: false,
+    help: true,
 }
 
 async function getToken(main, message) {
