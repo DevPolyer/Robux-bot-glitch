@@ -52,7 +52,8 @@ const newBot = new Discord.Client()
 const Bots = require("./database/models/bots");
 const data = await Bots.find();  
  for (let child of data) {
- setBot(newBot, child.token)
+ setBot(newBot, child.token);
+   console.log("new bot add")
  }
 })()
 
