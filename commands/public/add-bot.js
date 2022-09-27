@@ -1,11 +1,10 @@
 const prefix = require('../../config/config.json');
 const discord = require('discord.js');
 const newBot = new discord.Client();
-const { setBot } = require("../../bot.js");
+const setBot  = require("../../bot.js");
 const Bots = require("../../database/models/bots");
 
 module.exports.run = async(client, message, args) =>{
- 
   message.replyNoMention("**قم بارسال توكن البوت**").then(main => {
     getToken(main, message);
   })
@@ -27,11 +26,12 @@ async function getToken(main, message) {
        const TokenData = await Bots.findOne({token});
        if (TokenData) {
          collected.first().delete();
-          
+         message.delete();   
          message.replyNoMention("**تم تسجيل هذه التوكن بالفعل**")
        };
         
-      setBot(newBot, token).then(r => {
+      
+      setBot.setBot(newBot, token).then(r => {
         console.log(r)
         // if (r) {
         //     collected.first().delete();
@@ -43,6 +43,7 @@ async function getToken(main, message) {
       })
       
     }).catch(e => {
+      console.log(e)
       main.delete()
     })
 }
