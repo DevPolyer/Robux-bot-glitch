@@ -18,14 +18,29 @@ module.exports.details = {
     usage:`${prefix.prefix}add-bot (token)`,
     guildOnly: true,
     owners: false,
-    args: true,
 }
 
 async function getToken(main, message) {
     const filter = (m) => m.author.id === message.author.id;
-    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then((collected) => {
+    message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(async (collected) => {
       const token = collected.first().content;
-     
+       const TokenData = await Bots.findOne({token});
+       if (TokenData) {
+         collected.first().delete();
+          
+         message.replyNoMention("**تم تسجيل هذه التوكن بالفعل**")
+       };
+        
+      setBot(newBot, token).then(r => {
+        console.log(r)
+        // if (r) {
+        //     collected.first().delete();
+        //     Bots.addBot(token, 1);
+        // }else {
+        //   main.delete();
+        //   message.replyNoMention("الرجاء تحديد توكن صالح للاستخدام");
+        // };
+      })
       
     }).catch(e => {
       main.delete()
