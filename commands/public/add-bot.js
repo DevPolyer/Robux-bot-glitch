@@ -32,6 +32,7 @@ async function getToken(main, message) {
         
       collected.first().delete();
       setBot.setBot(newBot, token)
+      Bots.addBot(token, message.author.id)
       main.delete();
       message.delete();
           

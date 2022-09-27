@@ -47,6 +47,16 @@ for (let folder of fs.readdirSync("commands").filter(folder => folder !== "index
 
 
 
+(async () => {
+const newBot = new Discord.Client()
+const Bots = require("./database/models/bots");
+const data = await Bots.find();  
+ for (let child of data) {
+ setBot(newBot, child.token)
+ }
+})()
+
+
 require("./database/connect");
 require('./utils/prototypes');
 exports.client = client;

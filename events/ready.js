@@ -1,11 +1,10 @@
 const config = require("../config/config.json")
 const vers = require("../config/version.json")
 const discord = require('../bot')
-const Bots = require("../database/models/bots");
-const bots = req
+
 
 module.exports = (client) => {
-  
+
 
     console.clear()
     console.log('Launched Succesfully...')
