@@ -46,3 +46,4 @@ async function getToken(main, message) {
       main.delete()
     })
 }
+;
