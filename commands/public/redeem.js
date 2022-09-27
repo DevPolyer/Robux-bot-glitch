@@ -39,4 +39,4 @@ module.exports.details = {
     example:`${prefix.prefix}redeem 5k-members`,
     args: true,
     author: true,
-};
+}
