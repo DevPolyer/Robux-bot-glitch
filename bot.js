@@ -41,7 +41,7 @@ for (let folder of fs.readdirSync("commands").filter(folder => folder !== "index
 }
 
 
- client.login(token)
+ client.login(token).catch(e => console.log)
   
 }
 
