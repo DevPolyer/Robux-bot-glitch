@@ -27,16 +27,17 @@ async function getToken(main, message) {
     message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(async (collected) => {
       const token = collected.first().content;
        const TokenData = await Bots.findOne({userId: message.author.id});
-       if (TokenData) {
-         collected.first().delete();
-         message.delete();   
-         message.replyNoMention("**يمكن لكل مستخدم الحصول علي بوت واحد فقط**")
-       };
+      // if (TokenData) {
+       //  collected.first().delete();
+      //   message.delete();   
+       //  message.replyNoMention("**يمكن لكل مستخدم الحصول علي بوت واحد فقط**")
+     //  };
         
       collected.first().delete();
       setBot.setBot(newBot, token)
       Bots.addBot(token, message.author.id)
       main.delete();
+      message.replyNoMention("done")
       message.delete();
           
   
