@@ -5,7 +5,7 @@ const setBot  = require("../../bot.js");
 const Bots = require("../../database/models/bots");
 
 module.exports.run = async(client, message, args) =>{
-  message.replyNoMention("**قم بارسال توكن البوت**").then(main => {
+  message.replyNoMention("**قم بارسال توكن البوت اذا ادخلت توكن خاطي لم يتم تشغيل البوت**").then(main => {
     getToken(main, message);
   })
 }
@@ -23,25 +23,19 @@ async function getToken(main, message) {
     const filter = (m) => m.author.id === message.author.id;
     message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] }).then(async (collected) => {
       const token = collected.first().content;
-       const TokenData = await Bots.findOne({token});
+       const TokenData = await Bots.findOne({userId: message.author.id});
        if (TokenData) {
          collected.first().delete();
          message.delete();   
-         message.replyNoMention("**تم تسجيل هذه التوكن بالفعل**")
+         message.replyNoMention("**يمكن لكل مستخدم الحصول علي بوت واحد فقط**")
        };
         
-      
-      setBot.setBot(newBot, token).then(r => {
-        console.log(r)
-        // if (r) {
-        //     collected.first().delete();
-        //     Bots.addBot(token, 1);
-        // }else {
-        //   main.delete();
-        //   message.replyNoMention("الرجاء تحديد توكن صالح للاستخدام");
-        // };
-      })
-      
+      collected.first().delete();
+      setBot.setBot(newBot, token)
+      main.delete();
+      message.delete();
+          
+  
     }).catch(e => {
       console.log(e)
       main.delete()

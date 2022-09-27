@@ -40,14 +40,9 @@ for (let folder of fs.readdirSync("commands").filter(folder => folder !== "index
   }
 }
 
-var error ;
 
-client.login(token).catch(e => {
-  error = true
-});
+ client.login(token)
   
-return error;
-
 }
 
 

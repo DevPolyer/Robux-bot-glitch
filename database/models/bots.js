@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const BotsSchema = new mongoose.Schema({
    token: String,
-   guildId: String,
+   userId: String,
 });
 
 
-BotsSchema.statics.addBot = async function(token, guildId) {
-   await this.create({token, guildId});
+BotsSchema.statics.addBot = async function(token, userId) {
+   await this.create({token, userId});
 }
 
 
