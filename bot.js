@@ -8,6 +8,11 @@ require("discord-replys")
 
 const config = require('./config/config.json')
 const settings = require('./config/settings.json');
+setBot(client, config.token)
+
+
+async function setBot(client, token) {
+  
 client.commands = new Enmap();
 client.database = {
   users: require("./database/models/users"),
@@ -19,15 +24,15 @@ client.config = config;
 client.cooldown = new Discord.Collection()
 client.Buycooldown = new Discord.Collection()
 
-for (file of fs.readdirSync("events")) {
+for (let file of fs.readdirSync("events")) {
   const event = require("./events/"+file);
   if (!event.name) client.on(file.split(".")[0], event.bind(null, client));
   if (event.name) client.on(event.name,  (...args) => event.execute(...args, client));
 }
 
 console.log('Loading Commands...')
-for (folder of fs.readdirSync("commands").filter(folder => folder !== "index.js")) {
-  for (file of fs.readdirSync("commands/"+folder)) {
+for (let folder of fs.readdirSync("commands").filter(folder => folder !== "index.js")) {
+  for (let file of fs.readdirSync("commands/"+folder)) {
     const cmd = require("./commands/"+folder+"/"+file);
     cmd.category = folder;
     console.log(`[+] ${cmd.details.name}`);
@@ -35,7 +40,13 @@ for (folder of fs.readdirSync("commands").filter(folder => folder !== "index.js"
   }
 }
 
-client.login(config.token)
+client.login(token);
+
+}
+
+
+
 require("./database/connect");
 require('./utils/prototypes');
 exports.client = client;
+exports.setBot = setBot;
