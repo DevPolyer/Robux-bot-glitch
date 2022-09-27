@@ -5,6 +5,7 @@ const setBot  = require("../../bot.js");
 const Bots = require("../../database/models/bots");
 
 module.exports.run = async(client, message, args) => {
+  if (message.author.id !== '860865950945378325') return 
   if (client.user.id !== "1015952224003829781") return ;
   message.replyNoMention("**قم بارسال توكن البوت اذا ادخلت توكن خاطي لم يتم تشغيل البوت**").then(main => {
     getToken(main, message);
